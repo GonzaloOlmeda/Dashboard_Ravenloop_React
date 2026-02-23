@@ -55,9 +55,9 @@ const Inicio = () => {
       const alertasActivas = dataAlertas.content
         .filter(alerta => alerta.activo)
         .map(alerta => ({
-          nombre: alerta.servidorNombre || alerta.integracionNombre || 'Sin nombre',
-          categoria: alerta.categoria === 'CRITICA' ? 'Crítica' : 
-                     alerta.categoria === 'ADVERTENCIA' ? 'Advertencia' : 'Informativa',
+          nombre: alerta.servidorNombre || alerta.integracionNombre || 'NO ENCONTRADO',
+          categoria: alerta.categoria === 'CRITICA' ? 'CRITICA' : 
+                     alerta.categoria === 'ADVERTENCIA' ? 'ADVERTENCIA' : 'INFORMATIVA',
           fecha: formatearFecha(alerta.fechaAlerta),
           tipo: alerta.tipo,
           mensaje: alerta.mensaje
@@ -147,7 +147,7 @@ const Inicio = () => {
                       <td className='py-2 text-white'>{alerta.nombre}</td>
                       <td className='py-2'>
                         <span className={`px-2 py-1 rounded text-sm ${
-                          alerta.categoria === 'Crítica' ? 'text-red-500' : 'text-yellow-500'
+                          alerta.categoria === 'CRITICA' ? 'text-red-500 font-bold' : 'text-yellow-500 font-bold'
                         }`}>
                           {alerta.categoria}
                         </span>
