@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { menuItems } from '../sidebar_data';
 
-const Sidebar = () => {
+const Sidebar = ({ cambiarVista, vistaActual }) => {
     const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
@@ -25,7 +25,12 @@ const Sidebar = () => {
 
                 <nav>
                     {menuItems.map((item, index) => (
-                        <div key={index} className='flex items-center gap-4 mt-4 cursor-pointer hover:bg-blue-500 p-2 rounded'>
+                        <div 
+                            key={index} 
+                            onClick={() => cambiarVista(item.text)}
+                            className={`flex items-center gap-4 mt-4 cursor-pointer hover:bg-cyan-500 p-2 rounded transition-colors ${
+                                vistaActual === item.text ? 'bg-cyan-500' : ''
+                            }`}>
                             {item.icon} 
                             {isOpen && <span>{item.text}</span>}
                         </div>
@@ -35,8 +40,8 @@ const Sidebar = () => {
 
             <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className='w-10 h-10 rounded-full border-2 border-blue-500 flex items-center justify-center hover:bg-blue-200   /10 transition-colors'>
-                {isOpen ? <FaArrowLeft className='text-blue-500' /> : <FaArrowRight className='text-blue-500' />}
+                className='w-10 h-10 rounded-full border-2 border-cyan-500 flex items-center justify-center hover:bg-cyan-500/10 transition-colors'>
+                {isOpen ? <FaArrowLeft className='text-cyan-500' /> : <FaArrowRight className='text-cyan-500' />}
             </button>
         </motion.div>
     </div>
