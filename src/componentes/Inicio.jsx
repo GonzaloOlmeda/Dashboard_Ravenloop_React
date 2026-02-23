@@ -8,40 +8,75 @@ const Inicio = () => {
   const [usuariosJira, setUsuariosJira] = useState(null);
   const [alertas, setAlertas] = useState([]);
   const [usuario, setUsuario] = useState('USUARIO');
+  const [loading, setLoading] = useState(true);
 
-  // useEffect para cargar los datos
-  useEffect(() => {
-    // Aquí se harán las llamadas a las APIs
-    fetchDatos();
-  }, []);
+  const formatearFecha = (fechaISO) => {
+    const fecha = new Date(fechaISO);
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const año = fecha.getFullYear();
+    return `${dia}/${mes}/${año}`;
+  };
 
   const fetchDatos = async () => {
     try {
+      setLoading(true);
+      console.log('Iniciando fetch de datos...');
+      
       // TODO: Reemplazar con las llamadas reales a las APIs
-      // const responseGitlab = await fetch('API_URL_GITLAB');
+      // const responseGitlab = await fetch('http://localhost:8080/api/gitlab/usuarios');
       // const dataGitlab = await responseGitlab.json();
       // setUsuariosGitlab(dataGitlab.count);
 
-      // const responseServidores = await fetch('API_URL_SERVIDORES');
+      // const responseServidores = await fetch('http://localhost:8080/api/servidores/online');
       // const dataServidores = await responseServidores.json();
       // setServidoresOnline(dataServidores.count);
 
-      // const responseOffice = await fetch('API_URL_OFFICE365');
+      // const responseOffice = await fetch('http://localhost:8080/api/office365/usuarios');
       // const dataOffice = await responseOffice.json();
       // setUsuariosOffice365(dataOffice.count);
 
-      // const responseJira = await fetch('API_URL_JIRA');
+      // const responseJira = await fetch('http://localhost:8080/api/jira/usuarios');
       // const dataJira = await responseJira.json();
       // setUsuariosJira(dataJira.count);
 
-      // const responseAlertas = await fetch('API_URL_ALERTAS');
-      // const dataAlertas = await responseAlertas.json();
-      // setAlertas(dataAlertas);
+      // Cargar alertas desde el endpoint real
+      const responseAlertas = await fetch('http://localhost:8080/api/alertas');
+      console.log('Response status:', responseAlertas.status);
+      
+      if (!responseAlertas.ok) {
+        throw new Error(`HTTP error! status: ${responseAlertas.status}`);
+      }
+      
+      const dataAlertas = await responseAlertas.json();
+      console.log('Datos recibidos:', dataAlertas);
+      
+      // Filtrar solo alertas activas y mapear a la estructura que necesita el componente
+      const alertasActivas = dataAlertas.content
+        .filter(alerta => alerta.activo)
+        .map(alerta => ({
+          nombre: alerta.servidorNombre || alerta.integracionNombre || 'Sin nombre',
+          categoria: alerta.categoria === 'CRITICA' ? 'Crítica' : 
+                     alerta.categoria === 'ADVERTENCIA' ? 'Advertencia' : 'Informativa',
+          fecha: formatearFecha(alerta.fechaAlerta),
+          tipo: alerta.tipo,
+          mensaje: alerta.mensaje
+        }));
+      
+      console.log('Alertas procesadas:', alertasActivas);
+      setAlertas(alertasActivas);
 
     } catch (error) {
       console.error('Error al cargar los datos:', error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  // useEffect para cargar los datos
+  useEffect(() => {
+    fetchDatos();
+  }, []);
 
   return (
     <div className='min-h-screen bg-gray-950 text-white p-8'>
