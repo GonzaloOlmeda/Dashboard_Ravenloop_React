@@ -7,12 +7,11 @@ import { menuItems } from '../sidebar_data';
 const Sidebar = ({ cambiarVista, vistaActual }) => {
     const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>
         <motion.div 
         initial={{width: 80}}
         animate={{width: isOpen ? 240 : 80}}
         transition={{duration: 0.4}}
-        className='bg-gray-900 h-screen text-white p-4 flex flex-col justify-between '>
+        className='bg-gray-900 min-h-screen text-white p-4 flex flex-col justify-between'>
 
             <div>
                 <div className='mb-8 flex items-center justify-center mt-8'>
@@ -44,7 +43,6 @@ const Sidebar = ({ cambiarVista, vistaActual }) => {
                 {isOpen ? <FaArrowLeft className='text-cyan-500' /> : <FaArrowRight className='text-cyan-500' />}
             </button>
         </motion.div>
-    </div>
   )
 }
 
