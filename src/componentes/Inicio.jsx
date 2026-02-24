@@ -32,9 +32,9 @@ const Inicio = () => {
       // const dataServidores = await responseServidores.json();
       // setServidoresOnline(dataServidores.count);
 
-      // const responseOffice = await fetch('http://localhost:8080/api/office365/usuarios');
-      // const dataOffice = await responseOffice.json();
-      // setUsuariosOffice365(dataOffice.count);
+      const responseOffice = await fetch('http://localhost:8080/api/usuarios/microsoft365');
+      const dataOffice = await responseOffice.json();
+      setUsuariosOffice365(dataOffice.totalUsers);
 
       // const responseJira = await fetch('http://localhost:8080/api/jira/usuarios');
       // const dataJira = await responseJira.json();
@@ -65,6 +65,8 @@ const Inicio = () => {
       
       console.log('Alertas procesadas:', alertasActivas);
       setAlertas(alertasActivas);
+
+  
 
     } catch (error) {
       console.error('Error al cargar los datos:', error);
@@ -115,7 +117,7 @@ const Inicio = () => {
 
         {/* Tarjeta USUARIOS JIRA */}
         <div className='bg-cyan-500 rounded-xl p-6 shadow-lg'>
-          <h3 className='text-white font-bold text-lg mb-4'>USUARIOS JIRA</h3>
+          <h3 className='text-white font-bold text-lg mb-4'>Usuarios Jira</h3>
           <p className='text-5xl font-bold text-gray-900'>
             {usuariosJira !== null ? usuariosJira : '--'}
           </p>
