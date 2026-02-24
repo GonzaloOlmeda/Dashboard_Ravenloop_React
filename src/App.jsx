@@ -4,8 +4,8 @@ import './App.css';
 import Sidebar from './componentes/Sidebar';
 import Inicio from './componentes/Inicio';
 import Login from './componentes/Login';
-import Usuarios from './componentes/Usuarios'; // 👉 IMPORT CORRECTO
-
+import Usuarios from './componentes/Usuarios'; 
+import Infraestructura from './componentes/Infraestructura'; 
 function App() {
   const [logueado, setLogueado] = useState(false);
   const [vistaActual, setVistaActual] = useState('Inicio');
@@ -21,6 +21,9 @@ function App() {
 
       case 'Usuarios': 
         return <Usuarios />;
+
+      case 'Infraestructura': 
+      return <Infraestructura />;
 
       case 'Alertas':
         return (
