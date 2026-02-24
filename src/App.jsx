@@ -1,41 +1,41 @@
 import { useState } from 'react';
 import './App.css';
+
 import Sidebar from './componentes/Sidebar';
 import Inicio from './componentes/Inicio';
 import Login from './componentes/Login';
+import Usuarios from './componentes/Usuarios'; // 👉 IMPORT CORRECTO
 
 function App() {
   const [logueado, setLogueado] = useState(false);
   const [vistaActual, setVistaActual] = useState('Inicio');
 
-  // Si NO está logueado → mostrar login
   if (!logueado) {
     return <Login onLogin={() => setLogueado(true)} />;
   }
 
-  // Si está logueado → mostrar dashboard
   const renderizarContenido = () => {
     switch (vistaActual) {
       case 'Inicio':
         return <Inicio />;
-      case 'Usuarios':
-        return (
-          <div className='p-8 text-white'>
-            <h1 className='text-3xl'>Usuarios</h1>
-          </div>
-        );
+
+      case 'Usuarios': 
+        return <Usuarios />;
+
       case 'Alertas':
         return (
           <div className='p-8 text-white'>
             <h1 className='text-3xl'>Alertas</h1>
           </div>
         );
+
       case 'Infraestructura':
         return (
           <div className='p-8 text-white'>
             <h1 className='text-3xl'>Infraestructura</h1>
           </div>
         );
+
       default:
         return <Inicio />;
     }
