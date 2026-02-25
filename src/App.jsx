@@ -6,6 +6,7 @@ import Inicio from './componentes/Inicio';
 import Login from './componentes/Login';
 import Usuarios from './componentes/Usuarios'; 
 import Infraestructura from './componentes/Infraestructura'; 
+import Alertas from './componentes/Alertas';
 function App() {
   const [logueado, setLogueado] = useState(false);
   const [vistaActual, setVistaActual] = useState('Inicio');
@@ -22,23 +23,14 @@ function App() {
       case 'Usuarios': 
         return <Usuarios />;
 
+      case 'Alertas': 
+      return <Alertas />;
+
+
       case 'Infraestructura': 
       return <Infraestructura />;
 
-      case 'Alertas':
-        return (
-          <div className='p-8 text-white'>
-            <h1 className='text-3xl'>Alertas</h1>
-          </div>
-        );
-
-      case 'Infraestructura':
-        return (
-          <div className='p-8 text-white'>
-            <h1 className='text-3xl'>Infraestructura</h1>
-          </div>
-        );
-
+      
       default:
         return <Inicio />;
     }
