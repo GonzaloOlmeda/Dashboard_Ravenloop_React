@@ -80,91 +80,95 @@ const Inicio = () => {
     fetchDatos();
   }, []);
 
-  return (
-    <div className='min-h-screen bg-gray-950 text-white p-8'>
-      {/* Header */}
-      <div className='mb-8'>
-        <h2 className='text-gray-400 text-lg mb-2'>Inicio</h2>
-        <h1 className='text-4xl font-bold'>BIENVENIDO ({usuario.toUpperCase()})</h1>
-      </div>
-
-      {/* Grid de tarjetas */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        
-        {/* Tarjeta Usuarios GitLab */}
-        <div className='bg-cyan-500 rounded-xl p-6 shadow-lg'>
-          <h3 className='text-white font-bold text-lg mb-4'>Usuarios GitLab</h3>
-          <p className='text-5xl font-bold text-gray-900'>
-            {usuariosGitlab !== null ? usuariosGitlab : '--'}
-          </p>
-        </div>
-
-        {/* Tarjeta Servidores Online */}
-        <div className='bg-cyan-500 rounded-xl p-6 shadow-lg'>
-          <h3 className='text-white font-bold text-lg mb-4'>Servidores Online</h3>
-          <p className='text-5xl font-bold text-gray-900'>
-            {servidoresOnline !== null ? String(servidoresOnline).padStart(2, '0') : '--'}
-          </p>
-        </div>
-
-        {/* Tarjeta Usuarios Office 365 */}
-        <div className='bg-cyan-500 rounded-xl p-6 shadow-lg'>
-          <h3 className='text-white font-bold text-lg mb-4'>Usuarios Office 365</h3>
-          <p className='text-5xl font-bold text-gray-900'>
-            {usuariosOffice365 !== null ? usuariosOffice365 : '--'}
-          </p>
-        </div>
-
-        {/* Tarjeta USUARIOS JIRA */}
-        <div className='bg-cyan-500 rounded-xl p-6 shadow-lg'>
-          <h3 className='text-white font-bold text-lg mb-4'>Usuarios Jira</h3>
-          <p className='text-5xl font-bold text-gray-900'>
-            {usuariosJira !== null ? usuariosJira : '--'}
-          </p>
-        </div>
-
-        {/* Tarjeta Alertas con tabla */}
-        <div className='bg-cyan-500 rounded-xl p-6 shadow-lg md:col-span-2'>
-          <div className='mb-4'>
-            <h3 className='text-white font-bold text-lg mb-2'>Alertas</h3>
-            <p className='text-5xl font-bold text-gray-900'>
-              {alertas.length > 0 ? String(alertas.length).padStart(2, '0') : '--'}
-            </p>
-          </div>
-          
-          {/* Tabla de alertas */}
-          {alertas.length > 0 && (
-            <div className='mt-6'>
-              <table className='w-full text-left'>
-                <thead>
-                  <tr className='border-b border-cyan-400'>
-                    <th className='pb-2 font-bold text-white'>Nombre</th>
-                    <th className='pb-2 font-bold text-white'>Categoría</th>
-                    <th className='pb-2 font-bold text-white'>Fecha</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {alertas.map((alerta, index) => (
-                    <tr key={index} className='border-b border-cyan-400/30'>
-                      <td className='py-2 text-white'>{alerta.nombre}</td>
-                      <td className='py-2'>
-                        <span className={`px-2 py-1 rounded text-sm ${
-                          alerta.categoria === 'CRITICA' ? 'text-red-500 font-bold' : 'text-yellow-500 font-bold'
-                        }`}>
-                          {alerta.categoria}
-                        </span>
-                      </td>
-                      <td className='py-2 text-white'>{alerta.fecha}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      </div>
+ return (
+  <div className='min-h-screen bg-gray-950 text-white p-8'>
+    {/* Header */}
+    <div className='mb-8'>
+      <h2 className='text-gray-400 text-lg mb-2'>Inicio</h2>
+      <h1 className='text-4xl font-bold'>BIENVENIDO ({usuario.toUpperCase()})</h1>
     </div>
-  );
-};
 
+    {/* Grid de tarjetas */}
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+      
+      {/* Tarjeta Usuarios GitLab */}
+      <div className='bg-[#11A8FF] rounded-xl p-6 shadow-lg'>
+        <h3 className='text-white font-bold text-lg mb-4'>Usuarios GitLab</h3>
+        <p className='text-5xl font-bold text-gray-900'>
+          {usuariosGitlab !== null ? usuariosGitlab : '--'}
+        </p>
+      </div>
+
+      {/* Tarjeta Servidores Online */}
+      <div className='bg-[#11A8FF] rounded-xl p-6 shadow-lg'>
+        <h3 className='text-white font-bold text-lg mb-4'>Servidores Online</h3>
+        <p className='text-5xl font-bold text-gray-900'>
+          {servidoresOnline !== null ? String(servidoresOnline).padStart(2, '0') : '--'}
+        </p>
+      </div>
+
+      {/* Tarjeta Usuarios Office 365 */}
+      <div className='bg-[#11A8FF] rounded-xl p-6 shadow-lg'>
+        <h3 className='text-white font-bold text-lg mb-4'>Usuarios Office 365</h3>
+        <p className='text-5xl font-bold text-gray-900'>
+          {usuariosOffice365 !== null ? usuariosOffice365 : '--'}
+        </p>
+      </div>
+
+      {/* Tarjeta Usuarios Jira */}
+      <div className='bg-[#11A8FF] rounded-xl p-6 shadow-lg'>
+        <h3 className='text-white font-bold text-lg mb-4'>Usuarios Jira</h3>
+        <p className='text-5xl font-bold text-gray-900'>
+          {usuariosJira !== null ? usuariosJira : '--'}
+        </p>
+      </div>
+
+      {/* Tarjeta Alertas */}
+      <div className='bg-[#11A8FF] rounded-xl p-6 shadow-lg md:col-span-2'>
+        <div className='mb-4'>
+          <h3 className='text-white font-bold text-lg mb-2'>Alertas</h3>
+          <p className='text-5xl font-bold text-gray-900'>
+            {alertas.length > 0 ? String(alertas.length).padStart(2, '0') : '--'}
+          </p>
+        </div>
+
+        {/* Tabla de alertas */}
+        {alertas.length > 0 && (
+          <div className='mt-6'>
+            <table className='w-full text-left'>
+              <thead>
+                <tr className='border-b border-white'>
+                  <th className='pb-2 font-bold text-white'>Nombre</th>
+                  <th className='pb-2 font-bold text-white'>Categoría</th>
+                  <th className='pb-2 font-bold text-white'>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                {alertas.map((alerta, index) => (
+                  <tr key={index} className='border-b border-white/30'>
+                    <td className='py-2 text-white'>{alerta.nombre}</td>
+                    <td className='py-2'>
+                      <span className={`px-2 py-1 rounded text-sm ${
+                        alerta.categoria === 'CRITICA'
+                          ? 'text-red-500 font-bold'
+                          : alerta.categoria === 'ADVERTENCIA'
+                          ? 'text-yellow-400 font-bold'
+                          : 'text-blue-200 font-bold'
+                      }`}>
+                        {alerta.categoria}
+                      </span>
+                    </td>
+                    <td className='py-2 text-white'>{alerta.fecha}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+    </div>
+  </div>
+);
+};
 export default Inicio;
