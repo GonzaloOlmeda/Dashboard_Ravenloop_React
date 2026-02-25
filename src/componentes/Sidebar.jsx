@@ -5,7 +5,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { menuItems } from '../sidebar_data';
 
 const Sidebar = ({ cambiarVista, vistaActual }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
   return (
         <motion.div 
         initial={{width: 80}}
