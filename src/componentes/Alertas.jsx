@@ -10,6 +10,7 @@ export default function Alertas() {
     const [alertas, setAlertas] = useState([]);
     const [paginaActual, setPaginaActual] = useState(0);
     const [fechaBusqueda, setFechaBusqueda] = useState("");
+    const [servidores, setServidores] = useState([]);
 
 
     const formatearFecha = (fechaISO) => {
@@ -19,6 +20,33 @@ export default function Alertas() {
     const año = fecha.getFullYear();
     return `${dia}/${mes}/${año}`;
   };
+
+  // Función para obtener servidores disponibles
+  const fetchServidores = useCallback(async () => {
+    try {
+      console.log('Iniciando fetch de servidores...');
+      const response = await fetch('http://localhost:8080/api/infraestructura/servidores');
+      console.log('Response status servidores:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('Datos de servidores recibidos:', data);
+      console.log('Es array?', Array.isArray(data));
+      
+      // Compatibilidad con respuesta paginada { content: [...] } o array directo
+      const lista = Array.isArray(data) ? data : (data.content ?? []);
+      console.log('Servidores procesados:', lista);
+      console.log('Total servidores:', lista.length);
+      
+      setServidores(lista);
+    } catch (error) {
+      console.error('Error al cargar servidores:', error);
+      setServidores([]);
+    }
+  }, []);
 
 
   const fetchAlertas = useCallback(async (fechaFiltro = null) => {
@@ -72,7 +100,8 @@ export default function Alertas() {
   
   useEffect(() => {
       fetchAlertas();
-  }, [fetchAlertas]);
+      fetchServidores();
+  }, [fetchAlertas, fetchServidores]);
 
   // Función para buscar por fecha
   const buscarPorFecha = () => {
@@ -381,17 +410,29 @@ export default function Alertas() {
                         />
 
                         <label className="block mb-2">Sistema/Servidor</label>
-                        <input
-                            className="w-full p-2 rounded bg-[#61B1CE] mb-4"
-                            value={alertaEditando.servidorNombre}
-                            onChange={(e) =>
+                        <select
+                            className="w-full p-2 rounded bg-[#61B1CE] mb-4 text-white cursor-pointer"
+                            value={alertaEditando.servidorNombre || ""}
+                            onChange={(e) => {
+                                console.log('Servidor seleccionado:', e.target.value);
                                 setAlertaEditando({ 
                                     ...alertaEditando, 
                                     servidorNombre: e.target.value,
-                                    nombre: e.target.value 
-                                })
-                            }
-                        />
+                                    nombre: e.target.value
+                                });
+                            }}
+                        >
+                            <option value="">Selecciona un servidor ({servidores.length} disponibles)</option>
+                            {servidores.length > 0 ? (
+                                servidores.map((servidor) => (
+                                    <option key={servidor.id} value={servidor.nombre}>
+                                        {servidor.nombre} ({servidor.tipo})
+                                    </option>
+                                ))
+                            ) : (
+                                <option value="" disabled>Cargando servidores...</option>
+                            )}
+                        </select>
 
                         {/* BOTONES */}
                         <div className="flex justify-end gap-4 mt-4">
