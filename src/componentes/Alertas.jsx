@@ -62,6 +62,7 @@ export default function Alertas() {
                 tipo: nuevaAlerta.tipo,
                 mensaje: nuevaAlerta.mensaje,
                 servidorNombre: nuevaAlerta.servidorNombre,
+                integracionId: 1, // Valor por defecto (Office 365)
                 fechaAlerta: nuevaAlerta.fecha,
                 activo: true
             };
